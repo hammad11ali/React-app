@@ -46,7 +46,7 @@ class Signup extends Component {
       // Using Set time out for now
       setTimeout(() => {
         this.props.history.push("/Login");
-      }, 2000);
+      }, 100);
     } else {
       console.log("Password Donot Match");
       this.setState({

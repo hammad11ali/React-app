@@ -23,6 +23,11 @@ class Login extends Component {
         users[i].user_passw === this.state.user_pass
       ) {
         this.props.login(users[i].id);
+        // Redirect to Home from Modal Close
+        // Using Set time out for now
+        setTimeout(() => {
+          this.props.history.push("/");
+        }, 100);
       }
     }
   };

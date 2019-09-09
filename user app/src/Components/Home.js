@@ -2,19 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Home extends Component {
+  state = {
+    userdata: ""
+  };
   componentDidMount() {
-    console.log("Current Id: " + this.props.Users.currentId);
+    console.log("Current Id: " + this.props.Store.currentId);
+    this.checkLogin();
   }
   checkLogin = () => {
     let user;
-    if (this.props.currentId != -1) {
-      user = this.props.Users.Users.find(
-        user => user.id === this.props.Users.currentId
+    if (this.props.Store.currentId != -1) {
+      user = this.props.Store.Users.find(
+        user => user.id === this.props.Store.currentId
       );
+      console.log("jahshdjh");
+      this.setState({
+        userdata: (
+          <div>
+            <h4> {user.user_name} </h4>
+            <p> email: {user.user_email}</p>
+            <p> password: {user.user_passw}</p>
+            <p> id: {user.id}</p>
+          </div>
+        )
+      });
     } else {
       user = null;
     }
-    console.log(user);
   };
   render() {
     return (
@@ -30,9 +44,7 @@ class Home extends Component {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <button className="btn" onClick={this.checkLogin}>
-          Click Me
-        </button>
+        {this.state.userdata}
       </div>
     );
   }
@@ -40,7 +52,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    Users: state
+    Store: state
   };
 };
 
