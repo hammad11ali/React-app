@@ -5,12 +5,24 @@ import M from "materialize-css/dist/js/materialize.min.js";
 
 class Signup extends Component {
   state = {
-    user: { user_name: "", user_email: "", user_passw: "", confirm_pass: "" },
-
+    user: {
+      user_name: "",
+      user_email: "",
+      user_passw: "",
+      confirm_pass: "",
+      id: Math.random()
+    },
     invalid_pass: "hide"
   };
 
   handleChange = e => {
+    const new_user = { ...this.state.user, [e.target.id]: e.target.value };
+    this.setState({
+      user: new_user
+    });
+  };
+
+  handleChange_in_Email = e => {
     const new_user = { ...this.state.user, [e.target.id]: e.target.value };
     this.setState({
       user: new_user
@@ -124,6 +136,12 @@ class Signup extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    Users: state
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addUser: user => {
@@ -133,6 +151,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Signup);

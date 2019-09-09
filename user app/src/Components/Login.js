@@ -1,19 +1,48 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Login extends Component {
-  state = {};
+  state = {
+    user_email: "",
+    user_pass: ""
+  };
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+
+    let i = 0;
+    let users = this.props.Users.Users;
+    for (i = 0; i < users.length; i++) {
+      if (
+        users[i].user_email === this.state.user_email &&
+        users[i].user_passw === this.state.user_pass
+      ) {
+        this.props.login(users[i].id);
+      }
+    }
+  };
   render() {
     return (
       <div className="container">
         <h4>Material Design Login Form</h4>
         <div id="user-login" className="row">
           <div className="col s12 z-depth-6 card-panel">
-            <form className="login-form">
+            <form onSubmit={this.handleSubmit} className="login-form">
               <div className="row margin">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">email</i>
-                  <input className="validate" id="user_email" type="email" />
+                  <input
+                    onChange={this.handleChange}
+                    className="validate"
+                    id="user_email"
+                    type="email"
+                    required
+                  />
                   <label
                     htmlFor="email"
                     data-error="wrong"
@@ -27,7 +56,12 @@ class Login extends Component {
               <div className="row margin">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">lock_outline</i>
-                  <input id="user_pass" type="password" />
+                  <input
+                    onChange={this.handleChange}
+                    id="user_pass"
+                    type="password"
+                    required
+                  />
                   <label htmlFor="password">Password</label>
                 </div>
               </div>
@@ -53,4 +87,21 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    Users: state
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: id => {
+      dispatch({ type: "LOGIN", id: id });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

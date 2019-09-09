@@ -1,13 +1,26 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Home extends Component {
   componentDidMount() {
-    console.log("mhghg");
+    console.log("Current Id: " + this.props.Users.currentId);
   }
+  checkLogin = () => {
+    let user;
+    if (this.props.currentId != -1) {
+      user = this.props.Users.Users.find(
+        user => user.id === this.props.Users.currentId
+      );
+    } else {
+      user = null;
+    }
+    console.log(user);
+  };
   render() {
     return (
       <div className="container">
         <h2>Home</h2>
+        {}
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -17,9 +30,18 @@ class Home extends Component {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
+        <button className="btn" onClick={this.checkLogin}>
+          Click Me
+        </button>
       </div>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    Users: state
+  };
+};
+
+export default connect(mapStateToProps)(Home);
