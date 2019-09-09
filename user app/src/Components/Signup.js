@@ -31,6 +31,7 @@ class Signup extends Component {
     e.preventDefault();
     if (this.state.user_passw === this.state.confirm_pass) {
       console.log(this.state);
+      console.log(this.props.addUser);
     } else {
       console.log("Password Donot Match");
       this.setState({

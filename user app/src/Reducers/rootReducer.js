@@ -3,6 +3,10 @@ const initState = {
 };
 
 const rootReducer = (state = initState, action) => {
+  if (action === "ADD_USER") {
+    console.log(state);
+  }
+
   return state;
 };
 
