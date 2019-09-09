@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import M from "materialize-css/dist/js/materialize.min.js";
 
@@ -41,6 +41,12 @@ class Signup extends Component {
     e.preventDefault();
     if (this.state.user_passw === this.state.confirm_pass) {
       this.props.addUser(this.state.user);
+      // Open Modal
+      // Redirect to Login from Modal Close
+      // Using Set time out for now
+      setTimeout(() => {
+        this.props.history.push("/Login");
+      }, 2000);
     } else {
       console.log("Password Donot Match");
       this.setState({
@@ -138,7 +144,7 @@ class Signup extends Component {
 
 const mapStateToProps = state => {
   return {
-    Users: state
+    Store: state
   };
 };
 
@@ -153,4 +159,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Signup);
+)(withRouter(Signup));

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 
-class ErrorModal extends Component {
+class Modal extends Component {
   state = {};
   componentDidMount() {
     var elems = document.querySelectorAll(".modal");
@@ -11,11 +11,14 @@ class ErrorModal extends Component {
     return (
       <div id="modal1" class="modal">
         <div class="modal-content">
-          <h5>Error Occured during {this.props.event}</h5>
-          <p>{this.props.errorDetail}</p>
+          <h5>{this.props.event}</h5>
+          <p>{this.props.details}</p>
         </div>
         <div class="modal-footer">
-          <button class="modal-close waves-effect waves-green btn-flat">
+          <button
+            onClick={this.props.close}
+            class="modal-close waves-effect waves-green btn-flat"
+          >
             Ok
           </button>
         </div>
@@ -24,4 +27,4 @@ class ErrorModal extends Component {
   }
 }
 
-export default ErrorModal;
+export default Modal;

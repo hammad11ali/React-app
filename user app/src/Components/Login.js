@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Login extends Component {
@@ -16,7 +16,7 @@ class Login extends Component {
     e.preventDefault();
 
     let i = 0;
-    let users = this.props.Users.Users;
+    let users = this.props.Store.Users;
     for (i = 0; i < users.length; i++) {
       if (
         users[i].user_email === this.state.user_email &&
@@ -89,7 +89,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    Users: state
+    Store: state
   };
 };
 
@@ -104,4 +104,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(withRouter(Login));
