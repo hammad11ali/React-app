@@ -5,24 +5,22 @@ import M from "materialize-css/dist/js/materialize.min.js";
 
 class Signup extends Component {
   state = {
-    user_name: "",
-    user_email: "",
-    user_passw: "",
-    confirm_pass: "",
+    user: { user_name: "", user_email: "", user_passw: "", confirm_pass: "" },
+
     invalid_pass: "hide"
   };
 
-  componentDidMount() {}
-
   handleChange = e => {
+    const new_user = { ...this.state.user, [e.target.id]: e.target.value };
     this.setState({
-      [e.target.id]: e.target.value
+      user: new_user
     });
   };
 
   handleConfirmPass = e => {
+    const new_user = { ...this.state.user, confirm_pass: e.target.value };
     this.setState({
-      confirm_pass: e.target.value,
+      user: new_user,
       invalid_pass: "hide"
     });
   };
@@ -30,8 +28,7 @@ class Signup extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.user_passw === this.state.confirm_pass) {
-      console.log(this.state);
-      console.log(this.props.addUser);
+      this.props.addUser(this.state.user);
     } else {
       console.log("Password Donot Match");
       this.setState({
@@ -135,4 +132,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapDispatchToProps)(Signup);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Signup);

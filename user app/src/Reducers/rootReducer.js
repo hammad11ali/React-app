@@ -1,12 +1,14 @@
 const initState = {
-  users: []
+  Users: []
 };
 
 const rootReducer = (state = initState, action) => {
-  if (action === "ADD_USER") {
-    console.log(state);
+  if (action.type === "ADD_USER") {
+    console.log("Adding User");
+    let new_users = [...state.Users, action.user];
+    state.Users = new_users;
   }
-
+  console.log(state);
   return state;
 };
 
